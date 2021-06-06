@@ -1,6 +1,7 @@
 #include "Engine.h"
 
 #include "State.h"
+#include "TextureManager.h"
 
 Engine::Engine() {}
 
@@ -45,7 +46,7 @@ bool Engine::init(const char* windowName, int windowWidth, int windowHeight)
       mWindowWidth = windowWidth;
       mWindowHeight = windowHeight;
       // Create renderer for window (w/ VSYNC)
-      // TODO: USE FPS NOT VSYNC
+      // TODO: Use FPS not VSYNC
       mRenderer = SDL_CreateRenderer(
           mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
       if (mRenderer == NULL)
@@ -72,6 +73,7 @@ bool Engine::init(const char* windowName, int windowWidth, int windowHeight)
   }
 
   // Initialize camera (scaled)
+  // TODO: this probably doesn't need to be here...
   mCameraZoom = 1.0;
   mCamera.x = 0;
   mCamera.y = 0;
@@ -80,6 +82,14 @@ bool Engine::init(const char* windowName, int windowWidth, int windowHeight)
 
   // Set running and return success
   return mIsRunning = success;
+}
+
+bool Engine::loadAssets()
+{
+  // TODO: Add lua scripting to dynamically load assets
+  TextureManager::get().loadFromFile("intro", "assets/intro.png");
+  TextureManager::get().loadFromFile("play", "assets/play.png");
+  return true;
 }
 
 void Engine::quit()

@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
+// Forward declartion of State
 class State;
 
 class Engine
@@ -25,6 +26,9 @@ class Engine
             int windowHeight = 480);
   // Clean up SDL
   void quit();
+
+  // Load game assets
+  bool loadAssets();
 
   // Change state
   void changeState(State *state);

@@ -7,32 +7,15 @@
 #include "SDL.h"
 #include "State.h"
 #include "StateIntro.h"
+#include "TextureManager.h"
 
 StatePlay::StatePlay() {}
 
 StatePlay::~StatePlay() {}
 
-void StatePlay::init()
-{
-  // Load dummy image
-  SDL_Surface* loadedSurface = IMG_Load("res/play.png");
-  // Create texture from surface pixels
-  mPlay =
-      SDL_CreateTextureFromSurface(Engine::get().getRenderer(), loadedSurface);
-  // Get rid of old loaded surface
-  SDL_FreeSurface(loadedSurface);
+void StatePlay::init() { printf("StatePlay Init\n"); }
 
-  printf("StatePlay Init\n");
-}
-
-void StatePlay::cleanup()
-{
-  // Deallocate surface
-  SDL_DestroyTexture(mPlay);
-  mPlay = NULL;
-
-  printf("StatePlay Cleanup\n");
-}
+void StatePlay::cleanup() { printf("StatePlay Cleanup\n"); }
 
 void StatePlay::pause() { printf("StatePlay Pause\n"); }
 
@@ -70,7 +53,7 @@ void StatePlay::render()
   SDL_RenderClear(Engine::get().getRenderer());
 
   // Render texture to screen
-  SDL_RenderCopy(Engine::get().getRenderer(), mPlay, NULL, NULL);
+  TextureManager::get().getTexture("play")->render(0, 0);
 
   // Update screen
   SDL_RenderPresent(Engine::get().getRenderer());

@@ -10,8 +10,8 @@ CFLAGS=-std=c++17 -Wall -Wextra -pedantic-errors
 #IFLAGS=-Iinclude/ -I/usr/include
 #LIBFLAGS= `sdl2-config --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
 # Mac (assumes SDL installed via brew)
-IFLAGS=-Iinclude/ -I/usr/Local/Cellar/sdl2/2.0.14_1/include/SDL2 -I/usr/Local/Cellar/sdl2_image/2.0.5/include/SDL2
-LIBFLAGS=-lSDL2-2.0.0 -lSDL2_image-2.0.0
+IFLAGS=-Iinclude -Ilua -I/usr/Local/Cellar/sdl2/2.0.14_1/include/SDL2 -I/usr/Local/Cellar/sdl2_image/2.0.5/include/SDL2
+LIBFLAGS=-lSDL2-2.0.0 -lSDL2_image-2.0.0 -llua
 
 
 all: $(SRCS) $(BINDIR)$(BIN)

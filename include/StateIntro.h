@@ -29,9 +29,6 @@ class StateIntro : public State
   private:
   StateIntro();
   ~StateIntro();
-
-  // Dummy texture
-  SDL_Texture *mIntro;
 };
 
 #endif

@@ -29,9 +29,6 @@ class StatePlay : public State
   private:
   StatePlay();
   ~StatePlay();
-
-  // Dummy texture
-  SDL_Texture *mPlay;
 };
 
 #endif
