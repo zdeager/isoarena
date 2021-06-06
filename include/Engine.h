@@ -29,6 +29,8 @@ class Engine
 
   // Load game assets
   bool loadAssets();
+  // Unload game assets
+  void unloadAssets();
 
   // Change state
   void changeState(State *state);

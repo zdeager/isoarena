@@ -5,15 +5,7 @@
 
 TextureManager::TextureManager() {}
 
-TextureManager::~TextureManager()
-{
-  // Iterate over texture map and destroy Textures
-  std::map<std::string, Texture *>::iterator itr;
-  for (itr = mTextureMap.begin(); itr != mTextureMap.end(); itr++)
-    delete itr->second;
-  // Clear texture map
-  mTextureMap.clear();
-}
+TextureManager::~TextureManager() {}
 
 bool TextureManager::loadFromFile(std::string name, std::string path, bool key,
                                   uint8_t red, uint8_t green, uint8_t blue)
@@ -63,6 +55,17 @@ bool TextureManager::loadFromFile(std::string name, std::string path, bool key,
 }
 
 // Returns Texture from texture map
+void TextureManager::unloadAll()
+{
+  // Iterate over texture map and destroy Textures
+  std::map<std::string, Texture *>::iterator itr;
+  for (itr = mTextureMap.begin(); itr != mTextureMap.end(); itr++)
+    delete itr->second;
+  // Clear texture map
+  mTextureMap.clear();
+}
+
+// Returns Texture from texture map
 Texture *TextureManager::getTexture(std::string name)
 {
   // TODO: add existence check
@@ -78,12 +81,6 @@ Texture::Texture(SDL_Texture *texture, int width, int height)
 }
 
 Texture::~Texture()
-{
-  // Deallocate
-  free();
-}
-
-void Texture::free()
 {
   // Free texture if it exists
   if (mTexture != NULL)

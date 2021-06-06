@@ -1,11 +1,7 @@
-
 #include "StateIntro.h"
-
-#include <stdio.h>
 
 #include "Engine.h"
 #include "SDL.h"
-#include "State.h"
 #include "StatePlay.h"
 #include "TextureManager.h"
 

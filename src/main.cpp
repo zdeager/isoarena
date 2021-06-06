@@ -32,6 +32,9 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *args[])
     Engine::get().render();
   }
 
+  // Unload assets
+  Engine::get().unloadAssets();
+
   // Cleanup the engine
   Engine::get().quit();
   return 0;

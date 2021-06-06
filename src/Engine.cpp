@@ -92,6 +92,12 @@ bool Engine::loadAssets()
   return true;
 }
 
+void Engine::unloadAssets()
+{
+  // Destroy Textures
+  TextureManager::get().unloadAll();
+}
+
 void Engine::quit()
 {
   // Cleanup the all states

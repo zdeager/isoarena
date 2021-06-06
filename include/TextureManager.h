@@ -25,6 +25,9 @@ class TextureManager
   bool loadFromFile(std::string name, std::string path, bool key = false,
                     uint8_t red = 0, uint8_t green = 0, uint8_t blue = 0);
 
+  // Unload all textures (Destroy Textures)
+  void unloadAll();
+
   // Returns Texture from texture map
   Texture *getTexture(std::string name);
 
@@ -46,9 +49,6 @@ class Texture
 
   // Deallocates memory
   ~Texture();
-
-  // Deallocates texture
-  void free();
 
   // Set color modulation
   void setColor(uint8_t red, uint8_t green, uint8_t blue);
