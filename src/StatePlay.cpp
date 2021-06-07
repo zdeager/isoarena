@@ -1,6 +1,7 @@
 #include "StatePlay.h"
 
 #include "Engine.h"
+#include "MapManager.h"
 #include "SDL.h"
 #include "StateIntro.h"
 #include "TextureManager.h"
@@ -46,23 +47,16 @@ void StatePlay::update() {}
 void StatePlay::render()
 {
   // Clear screen
+  SDL_SetRenderDrawColor(Engine::get().getRenderer(), 0x1E, 0x15, 0x25, 0xFF);
   SDL_RenderClear(Engine::get().getRenderer());
 
-  // Render texture to screen
-  TextureManager::get().getTexture("play")->render(0, 0);
+  // Render level
+  MapManager::get().getMap("testmap")->render();
+
+  // Scale (zoom) renderer to camera
+  SDL_RenderSetScale(Engine::get().getRenderer(), Engine::get().getCameraZoom(),
+                     Engine::get().getCameraZoom());
 
   // Update screen
   SDL_RenderPresent(Engine::get().getRenderer());
-
-  /*
-  // Clear screen
-  SDL_SetRenderDrawColor(mRenderer, 0x1E, 0x15, 0x25, 0xFF);
-  SDL_RenderClear(mRenderer);
-
-  // Scale (zoom) renderer to camera
-  SDL_RenderSetScale(mRenderer, mCameraZoom, mCameraZoom);
-
-  // Update screen
-  SDL_RenderPresent(mRenderer);
-  */
 }

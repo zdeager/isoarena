@@ -54,7 +54,6 @@ bool TextureManager::loadFromFile(std::string name, std::string path, bool key,
   return newTexture != NULL;
 }
 
-// Returns Texture from texture map
 void TextureManager::unloadAll()
 {
   // Iterate over texture map and destroy Textures
@@ -65,7 +64,6 @@ void TextureManager::unloadAll()
   mTextureMap.clear();
 }
 
-// Returns Texture from texture map
 Texture *TextureManager::getTexture(std::string name)
 {
   // TODO: add existence check

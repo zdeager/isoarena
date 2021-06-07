@@ -58,6 +58,12 @@ class Engine
   // Return the renderer
   SDL_Renderer *getRenderer() { return mRenderer; }
 
+  // Return the camera
+  SDL_Rect *getCamera() { return &mCamera; }
+
+  // Return the camera zoom
+  float getCameraZoom() { return mCameraZoom; }
+
   private:
   // Constructor (private becuase singleton)
   Engine();

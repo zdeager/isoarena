@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+#include "MapManager.h"
 #include "State.h"
 #include "TextureManager.h"
 
@@ -78,7 +79,7 @@ bool Engine::init(const char* windowName, int windowWidth, int windowHeight)
   mCamera.x = 0;
   mCamera.y = 0;
   mCamera.w = (int)ceil(mWindowWidth / mCameraZoom);
-  mCamera.w = (int)ceil(mWindowHeight / mCameraZoom);
+  mCamera.h = (int)ceil(mWindowHeight / mCameraZoom);
 
   // Set running and return success
   return mIsRunning = success;
@@ -88,7 +89,10 @@ bool Engine::loadAssets()
 {
   // TODO: Add lua scripting to dynamically load assets
   TextureManager::get().loadFromFile("intro", "assets/intro.png");
-  TextureManager::get().loadFromFile("play", "assets/play.png");
+  // TextureManager::get().loadFromFile("play", "assets/play.png");
+  MapManager::get().loadFromFile("testmap", "assets/iso_tileset.png", 7, 6, 18,
+                                 20, "assets/test.map", 20, 20, 16, 8);
+  // TODO: this should check for success
   return true;
 }
 
