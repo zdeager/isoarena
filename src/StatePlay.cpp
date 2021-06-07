@@ -46,17 +46,20 @@ void StatePlay::update() {}
 
 void StatePlay::render()
 {
+  SDL_Renderer *renderer = Engine::get().getRenderer();
+  SDL_Rect *camera = Engine::get().getCamera();
+  float cameraZoom = Engine::get().getCameraZoom();
+
   // Clear screen
-  SDL_SetRenderDrawColor(Engine::get().getRenderer(), 0x1E, 0x15, 0x25, 0xFF);
-  SDL_RenderClear(Engine::get().getRenderer());
+  SDL_SetRenderDrawColor(renderer, 0x1E, 0x15, 0x25, 0xFF);
+  SDL_RenderClear(renderer);
 
   // Render level
-  MapManager::get().getMap("testmap")->render();
+  MapManager::get().getMap("testmap")->render(camera);
 
   // Scale (zoom) renderer to camera
-  SDL_RenderSetScale(Engine::get().getRenderer(), Engine::get().getCameraZoom(),
-                     Engine::get().getCameraZoom());
+  SDL_RenderSetScale(renderer, cameraZoom, cameraZoom);
 
   // Update screen
-  SDL_RenderPresent(Engine::get().getRenderer());
+  SDL_RenderPresent(renderer);
 }

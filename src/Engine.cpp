@@ -100,6 +100,8 @@ void Engine::unloadAssets()
 {
   // Destroy Textures
   TextureManager::get().unloadAll();
+  // Destroy Maps
+  MapManager::get().unloadAll();
 }
 
 void Engine::quit()

@@ -25,9 +25,12 @@ bool MapManager::loadFromFile(std::string name, std::string tilesetFile,
   return true;
 }
 
-Map *MapManager::getMap(std::string name) { return mMapMap[name]; }
+Map *MapManager::getMap(std::string name)
+{
+  // TODO: check existence?
+  return mMapMap[name];
+}
 
-// Returns Texture from texture map
 void MapManager::unloadAll()
 {
   // Iterate over texture map and destroy Textures
@@ -41,6 +44,7 @@ Map::Map(std::string name)
 {
   mClips = NULL;
   mTiles = NULL;
+  mTexture = NULL;
   mName = name;
 }
 
@@ -71,7 +75,10 @@ bool Map::setTileset(std::string name, std::string file, int tileSetWidth,
   int i, j, idx;
 
   // Load tileset texture
+  // TODO: check status
   TextureManager::get().loadFromFile(name, file);
+  // Cache Texture in Map class for faster lookup
+  mTexture = TextureManager::get().getTexture(name);
 
   // Set tile/tileset params
   mTileSetWidth = tileSetWidth;
@@ -176,32 +183,26 @@ bool Map::setMap(std::string file, int mapWidth, int mapHeight,
   return tilesLoaded;
 }
 
-void Map::render()
+void Map::render(SDL_Rect *camera)
 {
   for (int i = 0; i < mNumTiles; ++i)
-    if (mTiles[i])
-      mTiles[i]->render(TextureManager::get().getTexture(mName),
-                        Engine::get().getCamera());
+    if (mTiles[i]) mTiles[i]->render(mTexture, camera);
 }
 
-int Map::getWidthPx() { return mMapWidthPx; }
-
-int Map::getHeightPx() { return mMapHeightPx; }
-
-Tile::Tile(int x, int y, int w, int h, int mapw, int maph, int type,
-           SDL_Rect *clip, bool walkable)
+Tile::Tile(int x, int y, int tileWidth, int tileHeight, int mapTileWidth,
+           int mapTileHeight, int type, SDL_Rect *clip, bool walkable)
 {
   // Set map coords
   mX = x;
   mY = y;
 
   // Set world coords (transformed)
-  mBox.x = (x - y) * (mapw / 2);
-  mBox.y = (x + y) * (maph / 2);
+  mBox.x = (x - y) * (mapTileWidth / 2);
+  mBox.y = (x + y) * (mapTileHeight / 2);
 
   // Set tile dimensions
-  mBox.w = w;
-  mBox.h = h;
+  mBox.w = tileWidth;
+  mBox.h = tileHeight;
 
   // Set tile type
   mType = type;
@@ -213,11 +214,11 @@ Tile::Tile(int x, int y, int w, int h, int mapw, int maph, int type,
   mWalkable = walkable;
 }
 
+Tile::~Tile() { mClip = NULL; }
+
 void Tile::render(Texture *texture, SDL_Rect *camera)
 {
   // If the tile is on screen -> render tile
   if (SDL_HasIntersection(camera, &mBox))
     texture->render(mBox.x - camera->x, mBox.y - camera->y, mClip);
 }
-
-bool Tile::getWalkable() { return mWalkable; }

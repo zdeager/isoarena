@@ -54,7 +54,7 @@ class Map
   // Deallocs memory
   ~Map();
 
-  // Set tile set texture
+  // Set tileset texture
   bool setTileset(std::string name, std::string file, int tileSetWidth,
                   int tileSetHeight, int tileWidth, int tileHeight);
 
@@ -63,15 +63,18 @@ class Map
               int mapTileHeight);
 
   // Render map
-  void render();
+  void render(SDL_Rect *camera);
 
   // Get map width/height (in pixels)
-  int getWidthPx();
-  int getHeightPx();
+  int getWidthPx() { return mMapWidthPx; }
+  int getHeightPx() { return mMapHeightPx; }
 
   private:
   // Map name
   std::string mName;
+
+  // Map texture
+  Texture *mTexture;
 
   // Tile set width/height (in tiles)
   int mTileSetWidth;
@@ -107,14 +110,17 @@ class Tile
 {
   public:
   // Initializes tile
-  Tile(int x, int y, int w, int h, int mapw, int maph, int type, SDL_Rect *clip,
-       bool walkable);
+  Tile(int x, int y, int tileWidth, int tileHeight, int mapTileWidth,
+       int mapTileHeight, int type, SDL_Rect *clip, bool walkable);
+
+  // Clear tile memory
+  ~Tile();
 
   // Shows the tile
   void render(Texture *texture, SDL_Rect *camera);
 
   // Get walkabililty
-  bool getWalkable();
+  bool getWalkable() { return mWalkable; }
 
   private:
   // The tile coords (map coords)
