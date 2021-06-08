@@ -1,9 +1,9 @@
 # IsoArena (working title)
 
-## Installing SDL
+## Installing SDL/lua
 
-To install SDL on mac, use brew:
-`brew install sdl2 sdl2_image sdl2_mixer sdl2_net sdl2_ttf`
+To install SDL and lua on mac, use brew:
+`brew install sdl2 sdl2_image sdl2_mixer sdl2_net sdl2_ttf lua`
 
 ## Formatting
 
